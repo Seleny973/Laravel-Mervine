@@ -1,40 +1,132 @@
 <div class="admin-page">
   <h1>Admin - Gestion</h1>
 
-  <h2>Produits</h2>
-  <div class="product-list">
-    @for(p of products; track $index){
-      <div class="product-row">
-        <div class="title">{{p.title}}</div>
+  <!-- Utilisateurs -->
+  <section>
+    <h2>Utilisateurs</h2>
+    <form [formGroup]="userForm" class="form-row">
+      <input placeholder="Username" formControlName="username">
+      <input placeholder="Email" formControlName="email">
+      <input placeholder="Nom" formControlName="name">
+      <input placeholder="Mot de passe" type="password" formControlName="password">
+      <select formControlName="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="button" (click)="addUser(false)">Créer User</button>
+      <button type="button" (click)="addUser(true)">Créer Admin</button>
+    </form>
+
+    <table class="user-table" *ngIf="users && users.length > 0; else noUsers">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Nom</th>
+          <th>Rôle</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.id }}</td>
+          <td><input [(ngModel)]="u.username"></td>
+          <td><input [(ngModel)]="u.email"></td>
+          <td><input [(ngModel)]="u.name"></td>
+          <td>
+            <select [(ngModel)]="u.role">
+              <option value="user">user</option>
+              <option value="admin">admin</option>
+            </select>
+          </td>
+          <td>
+            <button (click)="updateUser(u)">Mettre à jour</button>
+            <button (click)="deleteUser(u)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noUsers>
+      <p>Aucun utilisateur pour le moment.</p>
+    </ng-template>
+  </section>
+
+  <!-- Produits -->
+  <section>
+    <h2>Produits</h2>
+    <form [formGroup]="productForm" class="form-row">
+      <input placeholder="Titre" formControlName="title">
+      <input placeholder="Prix" type="number" formControlName="price">
+      <input placeholder="Catégorie ID" type="number" formControlName="category_id">
+      <input placeholder="Image (URL)" formControlName="image">
+      <input placeholder="Description" formControlName="description">
+      <button type="button" (click)="createProduct()">Créer produit</button>
+    </form>
+
+    <div class="product-list">
+      @for(p of products; track $index){
+        <div class="product-row">
+          <div class="title">{{p.title}} (cat: {{p.category_id}})</div>
+          <div class="actions">
+            <button (click)="updateProductPrompt(p)">Mettre à jour</button>
+            <button (click)="delete(p)">Supprimer</button>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Catégories -->
+  <section>
+    <h2>Catégories</h2>
+    <form [formGroup]="categoryForm" class="form-row">
+      <input placeholder="Nom" formControlName="name">
+      <input placeholder="Description" formControlName="description">
+      <button type="button" (click)="createCategory()">Créer catégorie</button>
+    </form>
+
+    <div class="category-list">
+      <div class="category-row" *ngFor="let c of categories">
+        <div>{{c.name}}</div>
         <div class="actions">
-          <button (click)="delete(p)">Supprimer</button>
+          <button (click)="updateCategoryPrompt(c)">Mettre à jour</button>
+          <button (click)="deleteCategory(c)">Supprimer</button>
         </div>
       </div>
-    }
-  </div>
+    </div>
+  </section>
 
-  <h2>Utilisateurs</h2>
-  <table class="user-table" *ngIf="users && users.length > 0; else noUsers">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Nom</th>
-        <th>Créé le</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let u of users">
-        <td>{{ u.id }}</td>
-        <td>{{ u.username }}</td>
-        <td>{{ u.email }}</td>
-        <td>{{ u.name }}</td>
-        <td>{{ u.created_at | date:'short' }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <ng-template #noUsers>
-    <p>Aucun utilisateur pour le moment.</p>
-  </ng-template>
+  <!-- Commandes -->
+  <section>
+    <h2>Commandes</h2>
+    <form [formGroup]="orderForm" class="form-row">
+      <input placeholder="User ID" type="number" formControlName="user_id">
+      <input placeholder="Produit ID" type="number" formControlName="product_id">
+      <input placeholder="Quantité" type="number" formControlName="quantity">
+      <input placeholder="Prix" type="number" formControlName="price">
+      <input placeholder="Statut" formControlName="status">
+      <button type="button" (click)="createOrder()">Créer commande</button>
+    </form>
+
+    <table class="order-table" *ngIf="orders && orders.length">
+      <thead>
+        <tr>
+          <th>ID</th><th>User</th><th>Total</th><th>Statut</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of orders">
+          <td>{{o.id}}</td>
+          <td>{{o.user_id}}</td>
+          <td>{{o.total}}</td>
+          <td>{{o.status}}</td>
+          <td>
+            <button (click)="updateOrderStatus(o)">Modifier statut</button>
+            <button (click)="deleteOrder(o)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </div>

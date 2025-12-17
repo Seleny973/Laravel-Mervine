@@ -79,3 +79,4 @@ Après l'installation de Composer, vous devrez également :
 
 Une fois PHP et Composer installés, exécutez `composer install` dans le dossier `Cerces`.
 
+

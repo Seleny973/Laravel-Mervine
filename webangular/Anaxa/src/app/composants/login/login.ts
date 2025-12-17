@@ -18,8 +18,9 @@ export class Login {
     private userService: UserService
   ) {
     this.loginForm = new FormGroup({
-      username: new FormControl('johnd', [Validators.required]),
-      password: new FormControl('m38rmF$', [Validators.required, Validators.minLength(6)]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      isAdmin: new FormControl(false)
     });
   }
 
@@ -34,13 +35,15 @@ export class Login {
   }
 
   onSubmit() {
-    console.log(this.loginForm);
     if (this.loginForm.valid) {
-      // console.log('Formulaire valide:', this.loginForm.value);
-      this.userService.login(this.loginForm.value.username, this.loginForm.value.password)
+      const { username, password, isAdmin } = this.loginForm.value;
+      const call$ = isAdmin
+        ? this.userService.loginAdmin(username, password)
+        : this.userService.login(username, password);
+
+      call$
       .subscribe({
         next: (response:any) => {
-          console.log('Connexion réussie', response);
           this.userService.setToken(response.token);
         },
         error: (error) => {

@@ -33,9 +33,17 @@ export class ProductService {
     return this.http.get(`${environment.apiUrl}/products`);
   }
 
+  createProduct(payload: any) {
+    return this.http.post(`${environment.apiUrl}/products`, payload, { headers: this.authHeaders() });
+  }
+
+  updateProduct(productId: number, payload: any){
+    return this.http.put(`${environment.apiUrl}/products/${productId}`, payload, { headers: this.authHeaders() });
+  }
+
   deleteProductRemote(productId: number){
     // Call the Laravel API to delete product
-    return this.http.delete(`${environment.apiUrl}/products/${productId}`);
+    return this.http.delete(`${environment.apiUrl}/products/${productId}`, { headers: this.authHeaders() });
   }
 
   addToCart(product: any, quantity = 1){
@@ -75,6 +83,18 @@ export class ProductService {
   private persist(){
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('cart', JSON.stringify(this.cart));
+    }
+  }
+
+  private authHeaders() {
+    if (typeof window === 'undefined') return {};
+    const raw = localStorage.getItem('token');
+    if (!raw) return {};
+    try {
+      const token = JSON.parse(raw);
+      return token ? { Authorization: `Bearer ${token}` } : {};
+    } catch {
+      return {};
     }
   }
 }

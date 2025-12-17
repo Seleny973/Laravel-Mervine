@@ -10,6 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'category_id',
         'title',
         'price',
         'description',
@@ -21,5 +22,11 @@ class Product extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'rating' => 'array',
+        'category_id' => 'integer',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

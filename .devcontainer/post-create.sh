@@ -37,3 +37,4 @@ echo "   - API Laravel : cd Cerces && php artisan serve --host=0.0.0.0 --port=80
 echo "   - Angular     : cd webangular/Anaxa && npm start -- --host 0.0.0.0 --port 4200"
 
 
+
