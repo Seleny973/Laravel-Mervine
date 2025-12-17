@@ -1,0 +1,62 @@
+
+// Fond général
+.homepage-bg {
+	min-height: 100vh;
+	background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+	padding: 40px 0;
+}
+
+// Section panier
+.cart-section {
+	background: #fff;
+	box-shadow: 0 4px 24px rgba(60, 60, 120, 0.08);
+	border-radius: 16px;
+	max-width: 400px;
+	margin: 0 auto 32px auto;
+	padding: 24px 32px;
+	text-align: center;
+}
+.cart-title {
+	font-size: 2rem;
+	font-weight: 700;
+	color: #6366f1;
+	margin-bottom: 16px;
+}
+.cart-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.cart-item {
+	background: #eef2ff;
+	border-radius: 8px;
+	padding: 8px 16px;
+	box-shadow: 0 2px 8px rgba(99, 102, 241, 0.05);
+}
+.cart-product-title {
+	font-weight: 500;
+	color: #3730a3;
+}
+
+// Section produits
+.products-section {
+	background: #fff;
+	box-shadow: 0 4px 24px rgba(60, 60, 120, 0.08);
+	border-radius: 16px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 32px 40px;
+}
+.products-title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #6366f1;
+	margin-bottom: 24px;
+	text-align: center;
+}
+.products-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 32px;
+	justify-content: center;
+}

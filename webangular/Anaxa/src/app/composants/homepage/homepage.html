@@ -1,0 +1,26 @@
+
+
+<div class="homepage-bg">
+    <div class="cart-section">
+        <h1 class="cart-title">Mon Panier</h1>
+        <div class="cart-list">
+            @for(product of cart; track $index){
+                <div class="cart-item">
+                    <span class="cart-product-title">{{product.title}}</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="products-section">
+        <h2 class="products-title">Nos produits</h2>
+        <div class="products-container">
+            @for (item of products; track $index) {
+                <app-product-card
+                    [product]="item"
+                    (onClick)="handleProductClick($event)"
+                ></app-product-card>
+            }
+        </div>
+    </div>
+</div>

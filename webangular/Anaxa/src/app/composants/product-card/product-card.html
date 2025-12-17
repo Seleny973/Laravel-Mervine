@@ -1,0 +1,7 @@
+<div class="product-item" >
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.description }}</p>
+    <p>Prix: {{ product.price }} USD</p>
+    <img [src]="product.image" alt="{{ product.title }}" width="100">
+    <button class="btn btn-primary" (click)="onProductClick($event)">Add to cart</button>
+</div>

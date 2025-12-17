@@ -1,0 +1,13 @@
+<div class="admin-page">
+  <h1>Admin - Gestion des produits</h1>
+  <div class="product-list">
+    @for(p of products; track $index){
+      <div class="product-row">
+        <div class="title">{{p.title}}</div>
+        <div class="actions">
+          <button (click)="delete(p)">Supprimer</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
