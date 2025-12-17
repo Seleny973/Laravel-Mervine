@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';
+import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,14 +13,25 @@ import { Router } from '@angular/router';
 })
 export class Admin {
   products: any[] = [];
-  constructor(private productService: ProductService, private router: Router){ }
+  users: any[] = [];
+  constructor(
+    private productService: ProductService,
+    private userService: UserService,
+    private router: Router
+  ){ }
 
   ngOnInit(){
     this.productService.getProducts().subscribe({
       next: (p: any) => {
         this.products = p;
       }, error: (e:any) => console.error(e)
-    })
+    });
+
+    this.userService.getAll().subscribe({
+      next: (u: any) => {
+        this.users = u;
+      }, error: (e:any) => console.error(e)
+    });
   }
 
   delete(product: any){

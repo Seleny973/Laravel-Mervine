@@ -1,5 +1,7 @@
 <div class="admin-page">
-  <h1>Admin - Gestion des produits</h1>
+  <h1>Admin - Gestion</h1>
+
+  <h2>Produits</h2>
   <div class="product-list">
     @for(p of products; track $index){
       <div class="product-row">
@@ -10,4 +12,29 @@
       </div>
     }
   </div>
+
+  <h2>Utilisateurs</h2>
+  <table class="user-table" *ngIf="users && users.length > 0; else noUsers">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Nom</th>
+        <th>Créé le</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td>{{ u.id }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.name }}</td>
+        <td>{{ u.created_at | date:'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noUsers>
+    <p>Aucun utilisateur pour le moment.</p>
+  </ng-template>
 </div>
